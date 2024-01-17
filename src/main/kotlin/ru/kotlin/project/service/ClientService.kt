@@ -9,33 +9,38 @@ import ru.kotlin.project.repository.ClientRepository
 
 @Service
 class ClientService(@Autowired private val clientRepository: ClientRepository) {
+    fun add(entity: ClientEntity?): ResponseEntity<ClientEntity> {
+        if (entity == null) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+        clientRepository.save(entity)
+        return ResponseEntity(entity, HttpStatus.CREATED)
+    }
 
     fun list(): ResponseEntity<List<ClientEntity>> {
         return ResponseEntity(clientRepository.findAll().toList(), HttpStatus.OK)
     }
 
-    fun get(entityId: Long): ResponseEntity<ClientEntity> {
-        val targetEntity = clientRepository.findById(entityId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+    fun get(clientId: Long): ResponseEntity<ClientEntity> {
+        val targetEntity = clientRepository.findById(clientId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
         return ResponseEntity(targetEntity, HttpStatus.OK)
     }
 
-    fun add(entity: ClientEntity): ResponseEntity<ClientEntity> {
-        clientRepository.save(entity)
-        return ResponseEntity(entity, HttpStatus.CREATED)
-    }
-
-    fun edit(entityId: Long, entity: ClientEntity): ResponseEntity<ClientEntity> {
-        val targetEntity = clientRepository.findById(entityId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+    fun edit(clientId: Long, entity: ClientEntity?): ResponseEntity<ClientEntity> {
+        val targetEntity = clientRepository.findById(clientId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+        if (entity == null) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
         val updatedEntity = targetEntity.copy(name = entity.name, email = entity.email, phone = entity.phone)
         clientRepository.save(updatedEntity)
         return ResponseEntity(updatedEntity, HttpStatus.OK)
     }
 
-    fun delete(entityId: Long): ResponseEntity<ClientEntity> {
-        if (!clientRepository.existsById(entityId)) {
+    fun delete(clientId: Long): ResponseEntity<ClientEntity> {
+        if (!clientRepository.existsById(clientId)) {
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }
-        clientRepository.deleteById(entityId)
+        clientRepository.deleteById(clientId)
         return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }

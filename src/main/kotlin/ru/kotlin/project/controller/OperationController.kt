@@ -8,7 +8,7 @@ import ru.kotlin.project.entity.OperationEntity
 import ru.kotlin.project.service.OperationService
 
 @RestController
-@RequestMapping("/api/service")
+@RequestMapping("/api/operation")
 class OperationController @Autowired constructor(private val operationService: OperationService) {
     @PostMapping("/add")
     fun add(@RequestBody entity: OperationEntity): ResponseEntity<OperationEntity> {
@@ -20,18 +20,23 @@ class OperationController @Autowired constructor(private val operationService: O
         return operationService.list()
     }
 
-    @GetMapping("{entityId}/get")
-    fun view(@PathVariable entityId: Long): ResponseEntity<OperationEntity> {
-        return operationService.get(entityId)
+    @GetMapping("{operationId}/get")
+    fun view(@PathVariable operationId: Long): ResponseEntity<OperationEntity> {
+        return operationService.get(operationId)
     }
 
-    @PutMapping("{entityId}/edit")
-    fun edit(@PathVariable entityId: Long, @RequestBody entry: OperationEntity): ResponseEntity<OperationEntity> {
-        return operationService.edit(entityId, entry)
+    @PutMapping("{operationId}/open")
+    fun open(@PathVariable operationId: Long, @RequestBody date: String, @RequestBody timeFrom: String, @RequestBody timeTo: String): ResponseEntity<OperationEntity> {
+        return operationService.open(operationId, date, timeFrom, timeTo)
     }
 
-    @DeleteMapping("/{entityId}/delete")
-    fun delete(@PathVariable entityId: Long): ResponseEntity<OperationEntity> {
-        return operationService.delete(entityId)
+    @PutMapping("{operationId}/edit")
+    fun edit(@PathVariable operationId: Long, @RequestBody entry: OperationEntity): ResponseEntity<OperationEntity> {
+        return operationService.edit(operationId, entry)
+    }
+
+    @DeleteMapping("/{operationId}/delete")
+    fun delete(@PathVariable operationId: Long): ResponseEntity<OperationEntity> {
+        return operationService.delete(operationId)
     }
 }

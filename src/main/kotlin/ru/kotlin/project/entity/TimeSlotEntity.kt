@@ -16,7 +16,7 @@ data class TimeSlotEntity (
 
     var timeTo: Date,
 
-    var isLocked: Boolean,
+    var isLocked: Boolean = false,
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "operationId")
@@ -24,9 +24,9 @@ data class TimeSlotEntity (
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "clientId")
-    var clientEntity: ClientEntity
+    var clientEntity: ClientEntity? = null
 ) {
     override fun toString(): String {
-        return "TimeSlot(timeSlotId=$timeSlotId, date=$date, timeFrom=$timeFrom, timeTo=$timeTo)"
+        return "TimeSlot(timeSlotId=$timeSlotId, date=$date, timeFrom=$timeFrom, timeTo=$timeTo, isLocked=$isLocked)"
     }
 }

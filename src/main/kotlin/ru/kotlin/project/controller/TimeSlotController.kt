@@ -20,13 +20,13 @@ class TimeSlotController @Autowired constructor(private val timeSlotService: Tim
         return timeSlotService.list()
     }
 
-    @GetMapping("{entityId}/get")
-    fun view(@PathVariable entityId: Long): ResponseEntity<TimeSlotEntity> {
-        return timeSlotService.get(entityId)
+    @GetMapping("{timeSlotId}/get")
+    fun view(@PathVariable timeSlotId: Long): ResponseEntity<TimeSlotEntity> {
+        return timeSlotService.get(timeSlotId)
     }
 
-    @PutMapping("{entityId}/edit")
-    fun edit(@PathVariable entityId: Long, @RequestBody entry: TimeSlotEntity): ResponseEntity<TimeSlotEntity> {
-        return timeSlotService.edit(entityId, entry)
+    @PutMapping("{timeSlotId}/edit")
+    fun edit(@PathVariable timeSlotId: Long, @RequestBody entry: TimeSlotEntity): ResponseEntity<TimeSlotEntity> {
+        return timeSlotService.edit(timeSlotId, entry)
     }
 }
