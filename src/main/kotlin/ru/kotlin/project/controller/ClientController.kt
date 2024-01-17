@@ -20,18 +20,18 @@ class ClientController @Autowired constructor(private val clientService: ClientS
         return clientService.list()
     }
 
-    @GetMapping("{entityId}/get")
-    fun view(@PathVariable entityId: Long): ResponseEntity<ClientEntity> {
-        return clientService.get(entityId)
+    @GetMapping("{clientId}/get")
+    fun view(@PathVariable clientId: Long): ResponseEntity<ClientEntity> {
+        return clientService.get(clientId)
     }
 
-    @PutMapping("{entityId}/edit")
-    fun edit(@PathVariable entityId: Long, @RequestBody entry: ClientEntity): ResponseEntity<ClientEntity> {
-        return clientService.edit(entityId, entry)
+    @PutMapping("{clientId}/edit")
+    fun edit(@PathVariable clientId: Long, @RequestBody entry: ClientEntity): ResponseEntity<ClientEntity> {
+        return clientService.edit(clientId, entry)
     }
 
-    @DeleteMapping("/{entityId}/delete")
-    fun delete(@PathVariable entityId: Long): ResponseEntity<ClientEntity> {
-        return clientService.delete(entityId)
+    @DeleteMapping("/{clientId}/delete")
+    fun delete(@PathVariable clientId: Long): ResponseEntity<ClientEntity> {
+        return clientService.delete(clientId)
     }
 }
