@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse
 @Order(1)
 class LoggerFilter(private val logger: Logger) : HttpFilter() {
     override fun doFilter(rq: HttpServletRequest?, rs: HttpServletResponse?, chain: FilterChain?) {
-        logger.info("${rq?.method} --> ${rq?.requestURL}: ${rq?.queryString}")
+        logger.info("${rq?.method} --> ${rq?.requestURL}")
         chain?.doFilter(rq, rs)
     }
 }

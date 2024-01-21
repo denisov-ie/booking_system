@@ -41,6 +41,6 @@ class ClientService(@Autowired private val clientRepository: ClientRepository) {
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }
         clientRepository.deleteById(clientId)
-        return ResponseEntity(HttpStatus.NO_CONTENT)
+        return ResponseEntity(HttpStatus.OK)
     }
 }
