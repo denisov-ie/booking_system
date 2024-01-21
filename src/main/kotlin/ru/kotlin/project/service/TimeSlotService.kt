@@ -4,18 +4,51 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import ru.kotlin.project.dto.TimeParametersDto
 import ru.kotlin.project.entity.TimeSlotEntity
 import ru.kotlin.project.repository.TimeSlotRepository
+import java.sql.Time
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Service
-class TimeSlotService(@Autowired private val timeSlotRepository: TimeSlotRepository) {
-    fun add(entity: TimeSlotEntity?): ResponseEntity<TimeSlotEntity> {
-        if (entity == null) {
+class TimeSlotService @Autowired constructor(
+    private val timeSlotRepository: TimeSlotRepository
+    )
+
+{
+    fun add(entity: TimeParametersDto?, useDuration: Boolean?): ResponseEntity<Any> {
+        if (entity?.operationEntity == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        timeSlotRepository.save(entity)
-        return ResponseEntity(entity, HttpStatus.CREATED)
+        if (useDuration != null && useDuration) {
+            var timestampFrom = getTimestamp(entity.dateFor, entity.timeFrom)
+            val timestampTo = getTimestamp(entity.dateFor, entity.timeTo)
+            val durationMs = entity.operationEntity!!.duration * 60 * 1000
+            val timeSlots = ArrayList<TimeSlotEntity>()
+            while (timestampFrom < timestampTo - durationMs) {
+                val tempTimestampFrom = timestampFrom
+                timestampFrom += durationMs
+                val timeSlotEntity = TimeSlotEntity(
+                    dateFor = entity.dateFor,
+                    timeFrom = Time(tempTimestampFrom),
+                    timeTo = Time(timestampFrom),
+                    operationEntity = entity.operationEntity!!
+                )
+                timeSlots.add(timeSlotEntity)
+                timeSlotRepository.save(timeSlotEntity)
+            }
+            return ResponseEntity(timeSlots, HttpStatus.CREATED)
+        } else {
+            val timeSlotEntity = TimeSlotEntity(
+                dateFor = entity.dateFor,
+                timeFrom = entity.timeFrom,
+                timeTo = entity.timeTo,
+                operationEntity = entity.operationEntity!!)
+            timeSlotRepository.save(timeSlotEntity)
+            return ResponseEntity(timeSlotEntity, HttpStatus.CREATED)
+        }
     }
 
     fun list(isAvailable: Boolean?, isActive: Boolean?, operationId: Long?, clientId: Long?): ResponseEntity<List<TimeSlotEntity>> {
@@ -26,11 +59,11 @@ class TimeSlotService(@Autowired private val timeSlotRepository: TimeSlotReposit
             timeSlots = timeSlots.filter { entity -> entity.clientEntity != null && !entity.isLocked }
         }
         if (isActive == true) {
-            val dateNow = Date()
-            timeSlots = timeSlots.filter { entity -> entity.timeTo > dateNow }
+            val timestampNow = Date().time
+            timeSlots = timeSlots.filter { entity -> getTimestamp(entity.dateFor, entity.timeTo) >= timestampNow }
         } else if (isActive != null && isActive == false) {
-            val dateNow = Date()
-            timeSlots = timeSlots.filter { entity -> entity.timeTo < dateNow }
+            val timestampNow = Date().time
+            timeSlots = timeSlots.filter { entity -> getTimestamp(entity.dateFor, entity.timeTo) < timestampNow }
         }
         if (operationId != null && operationId >= 0) {
             timeSlots = timeSlots.filter { entity -> entity.operationEntity.operationId == operationId }
@@ -45,18 +78,26 @@ class TimeSlotService(@Autowired private val timeSlotRepository: TimeSlotReposit
         return ResponseEntity(timeSlotRepository.findAll().toList(), HttpStatus.OK)
     }
 
-    fun get(timeSlotId: Long): ResponseEntity<TimeSlotEntity> {
+    fun get(timeSlotId: Long?): ResponseEntity<TimeSlotEntity> {
+        if (timeSlotId == null) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
         val targetEntity = timeSlotRepository.findById(timeSlotId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
         return ResponseEntity(targetEntity, HttpStatus.OK)
     }
 
-    fun edit(timeSlotId: Long, entity: TimeSlotEntity?): ResponseEntity<TimeSlotEntity> {
-        val targetEntity = timeSlotRepository.findById(timeSlotId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
-        if (entity == null) {
+    fun edit(timeSlotId: Long?, entity: TimeSlotEntity?): ResponseEntity<TimeSlotEntity> {
+        if (timeSlotId == null || entity == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
+        val targetEntity = timeSlotRepository.findById(timeSlotId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
         val updatedEntity = targetEntity.copy(isLocked = entity.isLocked, clientEntity = entity.clientEntity)
         timeSlotRepository.save(updatedEntity)
         return ResponseEntity(updatedEntity, HttpStatus.OK)
+    }
+
+    private fun getTimestamp(date: java.sql.Date, time: Time): Long {
+        val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        return dateTimeFormat.parse("$date $time").time
     }
 }

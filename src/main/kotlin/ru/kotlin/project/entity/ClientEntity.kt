@@ -1,6 +1,5 @@
 package ru.kotlin.project.entity
 
-import org.hibernate.annotations.NaturalId
 import javax.persistence.*
 
 @Entity
@@ -16,7 +15,9 @@ data class ClientEntity (
     var email: String? = "",
 
     var phone: String
-) {
+)
+
+{
     override fun toString(): String {
         return "Client(clientId=$clientId, name=$name, email=$email, phone=$phone)"
     }

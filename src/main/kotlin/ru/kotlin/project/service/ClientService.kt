@@ -8,7 +8,11 @@ import ru.kotlin.project.entity.ClientEntity
 import ru.kotlin.project.repository.ClientRepository
 
 @Service
-class ClientService(@Autowired private val clientRepository: ClientRepository) {
+class ClientService @Autowired constructor(
+    private val clientRepository: ClientRepository
+    )
+
+{
     fun add(entity: ClientEntity?): ResponseEntity<ClientEntity> {
         if (entity == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -21,22 +25,28 @@ class ClientService(@Autowired private val clientRepository: ClientRepository) {
         return ResponseEntity(clientRepository.findAll().toList(), HttpStatus.OK)
     }
 
-    fun get(clientId: Long): ResponseEntity<ClientEntity> {
+    fun get(clientId: Long?): ResponseEntity<ClientEntity> {
+        if (clientId == null) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
         val targetEntity = clientRepository.findById(clientId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
         return ResponseEntity(targetEntity, HttpStatus.OK)
     }
 
-    fun edit(clientId: Long, entity: ClientEntity?): ResponseEntity<ClientEntity> {
-        val targetEntity = clientRepository.findById(clientId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
-        if (entity == null) {
+    fun edit(clientId: Long?, entity: ClientEntity?): ResponseEntity<ClientEntity> {
+        if (clientId == null || entity == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
+        val targetEntity = clientRepository.findById(clientId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
         val updatedEntity = targetEntity.copy(name = entity.name, email = entity.email, phone = entity.phone)
         clientRepository.save(updatedEntity)
         return ResponseEntity(updatedEntity, HttpStatus.OK)
     }
 
-    fun delete(clientId: Long): ResponseEntity<ClientEntity> {
+    fun delete(clientId: Long?): ResponseEntity<ClientEntity> {
+        if (clientId == null) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
         if (!clientRepository.existsById(clientId)) {
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }

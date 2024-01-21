@@ -10,7 +10,11 @@ import ru.kotlin.project.service.OperationService
 
 @RestController
 @RequestMapping("/api/operation")
-class OperationController @Autowired constructor(private val operationService: OperationService) {
+class OperationController @Autowired constructor(
+    private val operationService: OperationService
+    )
+
+{
     @PostMapping("/add")
     fun add(@RequestBody entity: OperationEntity): ResponseEntity<OperationEntity> {
         return operationService.add(entity)
@@ -24,11 +28,6 @@ class OperationController @Autowired constructor(private val operationService: O
     @GetMapping("{operationId}/get")
     fun view(@PathVariable operationId: Long): ResponseEntity<OperationEntity> {
         return operationService.get(operationId)
-    }
-
-    @PutMapping("{operationId}/open")
-    fun open(@PathVariable operationId: Long, @RequestBody timeParameters: TimeParametersDto): ResponseEntity<TimeParametersDto> {
-        return operationService.open(operationId, timeParameters)
     }
 
     @PutMapping("{operationId}/edit")

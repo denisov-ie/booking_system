@@ -9,7 +9,11 @@ import ru.kotlin.project.service.ClientService
 
 @RestController
 @RequestMapping("/api/client")
-class ClientController @Autowired constructor(private val clientService: ClientService) {
+class ClientController @Autowired constructor(
+    private val clientService: ClientService
+    )
+
+{
     @PostMapping("/add")
     fun add(@RequestBody entity: ClientEntity): ResponseEntity<ClientEntity> {
         return clientService.add(entity)
