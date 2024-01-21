@@ -8,13 +8,13 @@ import javax.persistence.*
 data class ClientEntity (
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
+    @Column(name = "client_id")
     var clientId: Long = 0,
 
     var name: String? = "",
 
     var email: String? = "",
 
-    @NaturalId
     var phone: String
 ) {
     override fun toString(): String {

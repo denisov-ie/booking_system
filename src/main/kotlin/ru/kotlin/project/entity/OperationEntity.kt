@@ -8,9 +8,9 @@ import javax.persistence.*
 data class OperationEntity (
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
+    @Column(name = "operation_id")
     var operationId: Long = 0,
 
-    @NaturalId
     var title: String,
 
     var description: String? = "",

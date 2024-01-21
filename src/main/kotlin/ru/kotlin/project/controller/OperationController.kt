@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.RestController
+import ru.kotlin.project.dto.TimeParametersDto
 import ru.kotlin.project.entity.OperationEntity
 import ru.kotlin.project.service.OperationService
 
@@ -26,8 +27,8 @@ class OperationController @Autowired constructor(private val operationService: O
     }
 
     @PutMapping("{operationId}/open")
-    fun open(@PathVariable operationId: Long, @RequestBody date: String, @RequestBody timeFrom: String, @RequestBody timeTo: String): ResponseEntity<OperationEntity> {
-        return operationService.open(operationId, date, timeFrom, timeTo)
+    fun open(@PathVariable operationId: Long, @RequestBody timeParameters: TimeParametersDto): ResponseEntity<TimeParametersDto> {
+        return operationService.open(operationId, timeParameters)
     }
 
     @PutMapping("{operationId}/edit")

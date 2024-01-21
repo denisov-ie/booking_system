@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import ru.kotlin.project.dto.TimeParametersDto
 import ru.kotlin.project.entity.OperationEntity
 import ru.kotlin.project.entity.TimeSlotEntity
 import ru.kotlin.project.repository.OperationRepository
@@ -30,22 +31,22 @@ class OperationService(@Autowired private val operationRepository: OperationRepo
         return ResponseEntity(targetEntity, HttpStatus.OK)
     }
 
-    fun open(operationId: Long, date: String?, timeFrom: String?, timeTo: String?): ResponseEntity<OperationEntity> {
+    fun open(operationId: Long, timeParameters: TimeParametersDto?): ResponseEntity<TimeParametersDto> {
         val targetEntity = operationRepository.findById(operationId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
-        if (date == null || timeFrom == null || timeTo == null) {
+        if (timeParameters == null || timeParameters.dateFor.isEmpty() || timeParameters.timeFrom.isEmpty() || timeParameters.timeTo.isEmpty()) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
         val dateTimeFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
-        val dateToOpen = dateFormat.parse(date)
-        var timestampFrom = dateTimeFormat.parse("$date $timeFrom").time
-        val timestampTo = dateTimeFormat.parse("$date $timeTo").time
+        val dateToOpen = dateFormat.parse(timeParameters.dateFor)
+        var timestampFrom = dateTimeFormat.parse("${timeParameters.dateFor} ${timeParameters.timeFrom}").time
+        val timestampTo = dateTimeFormat.parse("${timeParameters.dateFor} ${timeParameters.timeTo}").time
         val durationMs = targetEntity.duration * 60 * 1000
         while (timestampFrom < timestampTo - durationMs) {
             val tempTimestampFrom = timestampFrom
             timestampFrom += durationMs
             timeSlotRepository.save(TimeSlotEntity(
-                date = dateToOpen,
+                dateFor = dateToOpen,
                 operationEntity = targetEntity,
                 timeFrom = Date(tempTimestampFrom),
                 timeTo = Date(timestampFrom)
