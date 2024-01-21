@@ -1,6 +1,7 @@
 package ru.kotlin.project.entity
 
-import java.util.*
+import java.sql.Date
+import java.sql.Time
 import javax.persistence.*
 
 @Entity
@@ -15,10 +16,10 @@ data class TimeSlotEntity (
     var dateFor: Date,
 
     @Column(name = "time_from")
-    var timeFrom: Date,
+    var timeFrom: Time,
 
     @Column(name = "time_to")
-    var timeTo: Date,
+    var timeTo: Time,
 
     @Column(name = "is_locked")
     var isLocked: Boolean = false,
@@ -30,7 +31,9 @@ data class TimeSlotEntity (
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     var clientEntity: ClientEntity? = null
-) {
+)
+
+{
     override fun toString(): String {
         return "TimeSlot(timeSlotId=$timeSlotId, dateFor=$dateFor, timeFrom=$timeFrom, timeTo=$timeTo, isLocked=$isLocked)"
     }

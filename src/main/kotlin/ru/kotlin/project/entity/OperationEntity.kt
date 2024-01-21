@@ -1,6 +1,5 @@
 package ru.kotlin.project.entity
 
-import org.hibernate.annotations.NaturalId
 import javax.persistence.*
 
 @Entity
@@ -16,7 +15,9 @@ data class OperationEntity (
     var description: String? = "",
 
     var duration: Int
-) {
+)
+
+{
     override fun toString(): String {
         return "Service(operationId=$operationId, title=$title, description=$description, duration=$duration)"
     }
