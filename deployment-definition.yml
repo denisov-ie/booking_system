@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deployment
+  labels:
+    app: example
+    type: back-end
+spec:
+  template:
+    metadata:
+      name: example-pod
+      labels:
+        app: example
+        type: back-end
+    spec:
+      containers:
+        - name: example
+          image: docker-example
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: example-configmap
+  replicas: 3
+  selector:
+    matchLabels:
+      type: back-end
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-configmap
+  namespace: default
+data:
+  ACTIVE_PROFILE: "prod"
+  spring.profiles.active: ${ACTIVE_PROFILE}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-service
+spec:
+  type: NodePort
+  selector:
+    type: back-end
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      nodePort: 30008
