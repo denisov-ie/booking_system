@@ -3,6 +3,16 @@
 BEGIN;
 
 
+CREATE TABLE IF NOT EXISTS public.operations
+(
+    operation_id bigint NOT NULL,
+    title character varying(255) COLLATE pg_catalog."default",
+    description character varying(255) COLLATE pg_catalog."default",
+    duration bigint,
+    CONSTRAINT operation_pkey PRIMARY KEY (operation_id),
+    CONSTRAINT title_uk UNIQUE (title)
+);
+
 CREATE TABLE IF NOT EXISTS public.timeslots
 (
     timeslot_id bigint NOT NULL,
@@ -21,18 +31,9 @@ CREATE TABLE IF NOT EXISTS public.clients
     name character varying(255) COLLATE pg_catalog."default",
     email character varying(255) COLLATE pg_catalog."default",
     phone character varying(255) COLLATE pg_catalog."default",
+    password character varying COLLATE pg_catalog."default",
     CONSTRAINT client_pkey PRIMARY KEY (client_id),
     CONSTRAINT phone_uk UNIQUE (phone)
-);
-
-CREATE TABLE IF NOT EXISTS public.operations
-(
-    operation_id bigint NOT NULL,
-    title character varying(255) COLLATE pg_catalog."default",
-    description character varying(255) COLLATE pg_catalog."default",
-    duration bigint,
-    CONSTRAINT operation_pkey PRIMARY KEY (operation_id),
-    CONSTRAINT title_uk UNIQUE (title)
 );
 
 ALTER TABLE IF EXISTS public.timeslots
