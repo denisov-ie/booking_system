@@ -2,6 +2,7 @@ package ru.kotlin.project.controller
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.RestController
 import ru.kotlin.project.entity.ClientEntity
@@ -30,11 +31,12 @@ class ClientController @Autowired constructor(
     }
 
     @PutMapping("{clientId}/edit")
-    fun edit(@PathVariable clientId: Long, @RequestBody entry: ClientEntity): ResponseEntity<ClientEntity> {
-        return clientService.edit(clientId, entry)
+    fun edit(@PathVariable clientId: Long, @RequestBody entity: ClientEntity): ResponseEntity<ClientEntity> {
+        return clientService.edit(clientId, entity)
     }
 
     @DeleteMapping("/{clientId}/delete")
+    @PreAuthorize("hasAuthority('SUPPORT') || hasAuthority('ADMIN')")
     fun delete(@PathVariable clientId: Long): ResponseEntity<ClientEntity> {
         return clientService.delete(clientId)
     }

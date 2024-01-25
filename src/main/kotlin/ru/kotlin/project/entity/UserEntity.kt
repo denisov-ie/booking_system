@@ -11,7 +11,8 @@ import javax.persistence.*
 data class UserEntity (
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    val user_id: Long = 0,
+    @Column(name = "user_id")
+    val userId: Long = 0,
 
     var login: String,
 
@@ -19,13 +20,15 @@ data class UserEntity (
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
-    var roleEntity: RoleEntity
+    var roleEntity: RoleEntity? = null
 ): UserDetails
 
 {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         val authorities: MutableSet<GrantedAuthority> = HashSet()
-        authorities.add(SimpleGrantedAuthority(roleEntity.role))
+        if (roleEntity != null) {
+            authorities.add(SimpleGrantedAuthority(roleEntity!!.role))
+        }
         return authorities
     }
 
@@ -51,5 +54,9 @@ data class UserEntity (
 
     override fun isEnabled(): Boolean {
         return true
+    }
+
+    override fun toString(): String {
+        return "User(userId=$userId, login=$login, pass=$pass)"
     }
 }

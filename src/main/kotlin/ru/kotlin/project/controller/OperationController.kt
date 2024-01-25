@@ -2,6 +2,7 @@ package ru.kotlin.project.controller
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.RestController
 import ru.kotlin.project.dto.TimeParametersDto
@@ -31,11 +32,12 @@ class OperationController @Autowired constructor(
     }
 
     @PutMapping("{operationId}/edit")
-    fun edit(@PathVariable operationId: Long, @RequestBody entry: OperationEntity): ResponseEntity<OperationEntity> {
-        return operationService.edit(operationId, entry)
+    fun edit(@PathVariable operationId: Long, @RequestBody entity: OperationEntity): ResponseEntity<OperationEntity> {
+        return operationService.edit(operationId, entity)
     }
 
     @DeleteMapping("/{operationId}/delete")
+    @PreAuthorize("hasAuthority('SUPPORT') || hasAuthority('ADMIN')")
     fun delete(@PathVariable operationId: Long): ResponseEntity<OperationEntity> {
         return operationService.delete(operationId)
     }
