@@ -3,16 +3,6 @@
 BEGIN;
 
 
-CREATE TABLE IF NOT EXISTS public.operations
-(
-    operation_id bigint NOT NULL,
-    title character varying(255) COLLATE pg_catalog."default",
-    description character varying(255) COLLATE pg_catalog."default",
-    duration bigint,
-    CONSTRAINT operation_pkey PRIMARY KEY (operation_id),
-    CONSTRAINT title_uk UNIQUE (title)
-);
-
 CREATE TABLE IF NOT EXISTS public.timeslots
 (
     timeslot_id bigint NOT NULL,
@@ -36,17 +26,27 @@ CREATE TABLE IF NOT EXISTS public.clients
     CONSTRAINT phone_uk UNIQUE (phone)
 );
 
+CREATE TABLE IF NOT EXISTS public.operations
+(
+    operation_id bigint NOT NULL,
+    title character varying(255) COLLATE pg_catalog."default",
+    description character varying(255) COLLATE pg_catalog."default",
+    duration bigint,
+    CONSTRAINT operation_pkey PRIMARY KEY (operation_id),
+    CONSTRAINT title_uk UNIQUE (title)
+);
+
 ALTER TABLE IF EXISTS public.timeslots
     ADD CONSTRAINT clients_fk FOREIGN KEY (client_id)
     REFERENCES public.clients (client_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+    ON UPDATE SET NULL
+    ON DELETE SET NULL;
 
 
 ALTER TABLE IF EXISTS public.timeslots
     ADD CONSTRAINT operations_fk FOREIGN KEY (operation_id)
     REFERENCES public.operations (operation_id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
 
 END;

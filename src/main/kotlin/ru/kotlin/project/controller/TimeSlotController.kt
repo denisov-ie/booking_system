@@ -38,7 +38,7 @@ class TimeSlotController @Autowired constructor(
     }
 
     @PutMapping("{timeSlotId}/edit")
-    fun edit(@PathVariable timeSlotId: Long, @RequestBody entry: TimeSlotEntity): ResponseEntity<TimeSlotEntity> {
-        return timeSlotService.edit(timeSlotId, entry)
+    fun edit(@PathVariable timeSlotId: Long, @RequestBody entity: TimeSlotEntity): ResponseEntity<TimeSlotEntity> {
+        return timeSlotService.edit(timeSlotId, entity)
     }
 }

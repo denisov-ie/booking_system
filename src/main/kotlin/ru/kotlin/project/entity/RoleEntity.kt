@@ -12,3 +12,9 @@ data class RoleEntity  (
 
     var role: String
 )
+
+{
+    override fun toString(): String {
+        return "Role(roleId=$roleId, role=$role)"
+    }
+}

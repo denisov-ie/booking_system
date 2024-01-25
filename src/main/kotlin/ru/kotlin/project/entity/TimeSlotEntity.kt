@@ -1,5 +1,7 @@
 package ru.kotlin.project.entity
 
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.sql.Date
 import java.sql.Time
 import javax.persistence.*
@@ -26,6 +28,7 @@ data class TimeSlotEntity (
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "operation_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     var operationEntity: OperationEntity,
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
