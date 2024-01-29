@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">>
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Spring Security 6 + Thymeleaf Demo</title>
+    <meta charset="UTF-8">
+    <title>Система бронирования</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 
 
 <body>
-<!-- create navigation bar ( header) -->
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -20,15 +20,14 @@
                 <span class="icon-bar"></span> <span class="icon-bar">
                     </span>
             </button>
-            <a class="navbar-brand">
-                Registration and Login with Spring Boot 3 + Spring Security 6 + Thymeleaf</a>
+            <a class="navbar-brand">Система бронирования</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li sec:authorize="isAuthenticated()">
-                    <a href="javascript: document.logoutForm.submit()" class="dropdown-toggle">Sign out</a>
+                    <a href="javascript: document.logoutForm.submit()" class="dropdown-toggle">Выйти</a>
                     <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
-                        <input hidden type="submit" value="Sign Out" />
+                        <input hidden type="submit" value="Выйти" />
                     </form>
                 </li>
             </ul>
@@ -36,12 +35,5 @@
     </div>
 </nav>
 
-<br><br><br><br>
-<div class="container">
-    <div class="alert alert-success">
-        Hello <strong><span sec:authentication="principal.username"></span></strong>
-        Login Successful.
-    </div>
-</div>
 </body>
 </html>

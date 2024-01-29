@@ -17,7 +17,7 @@ class UserService @Autowired constructor(
 
 {
     override fun loadUserByUsername(login: String?): UserDetails {
-        return userRepository.findByLogin(login) ?: throw UsernameNotFoundException(login)
+        return userRepository.findByLogin(login)
     }
 
     fun add(entity: UserEntity?): ResponseEntity<UserEntity> {
@@ -45,7 +45,7 @@ class UserService @Autowired constructor(
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
         val targetEntity = userRepository.findById(userId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
-        val updatedEntity = targetEntity.copy(pass = entity.pass, roleEntity = entity.roleEntity)
+        val updatedEntity = targetEntity.copy(pass = entity.pass, roleEntity = entity.roleEntity, login = entity.login)
         userRepository.save(updatedEntity)
         return ResponseEntity(updatedEntity, HttpStatus.OK)
     }
@@ -58,6 +58,6 @@ class UserService @Autowired constructor(
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }
         userRepository.deleteById(userId)
-        return ResponseEntity(HttpStatus.OK)
+        return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }

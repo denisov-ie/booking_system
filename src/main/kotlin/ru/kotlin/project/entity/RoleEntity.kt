@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "roles")
 data class RoleEntity  (
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")
     var roleId: Long = 0,
 

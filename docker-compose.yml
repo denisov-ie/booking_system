@@ -2,6 +2,7 @@ version: '3'
 
 services:
   spring-boot-jpa-app:
+    container_name: booking_system
     image: booking_system_docker
     build:
       context: ./

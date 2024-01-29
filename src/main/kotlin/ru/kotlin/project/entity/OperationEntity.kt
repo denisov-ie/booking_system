@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "operations")
 data class OperationEntity (
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "operation_id")
     var operationId: Long = 0,
 

@@ -96,6 +96,17 @@ class TimeSlotService @Autowired constructor(
         return ResponseEntity(updatedEntity, HttpStatus.OK)
     }
 
+    fun delete(timeSlotId: Long?): ResponseEntity<TimeSlotEntity> {
+        if (timeSlotId == null) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+        if (!timeSlotRepository.existsById(timeSlotId)) {
+            return ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+        timeSlotRepository.deleteById(timeSlotId)
+        return ResponseEntity(HttpStatus.NO_CONTENT)
+    }
+
     private fun getTimestamp(date: java.sql.Date, time: Time): Long {
         val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         return dateTimeFormat.parse("$date $time").time
