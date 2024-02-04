@@ -25,6 +25,11 @@ class Security {
                 authorize(anyRequest, authenticated)
             }
             formLogin {
+                loginPage = "/login"
+                permitAll()
+            }
+            logout {
+                logoutUrl = "/logout"
                 permitAll()
             }
             csrf {

@@ -2,6 +2,7 @@ package ru.kotlin.project.controller
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.RestController
 import ru.kotlin.project.dto.TimeParametersDto
@@ -40,5 +41,11 @@ class TimeSlotController @Autowired constructor(
     @PutMapping("{timeSlotId}/edit")
     fun edit(@PathVariable timeSlotId: Long, @RequestBody entity: TimeSlotEntity): ResponseEntity<TimeSlotEntity> {
         return timeSlotService.edit(timeSlotId, entity)
+    }
+
+    @DeleteMapping("/{timeSlotId}/delete")
+    @PreAuthorize("hasAuthority('SUPPORT') || hasAuthority('ADMIN')")
+    fun delete(@PathVariable timeSlotId: Long): ResponseEntity<TimeSlotEntity> {
+        return timeSlotService.delete(timeSlotId)
     }
 }

@@ -5,20 +5,19 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
 
-
 @Entity
 @Table(name = "users")
 data class UserEntity (
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    val userId: Long = 0,
+    var userId: Long = 0,
 
     var login: String,
 
     var pass: String,
 
-    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @ManyToOne(cascade = [CascadeType.MERGE], fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     var roleEntity: RoleEntity? = null
 ): UserDetails

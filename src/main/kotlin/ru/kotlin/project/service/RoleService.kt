@@ -51,6 +51,6 @@ class RoleService @Autowired constructor(
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }
         roleRepository.deleteById(roleId)
-        return ResponseEntity(HttpStatus.OK)
+        return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }

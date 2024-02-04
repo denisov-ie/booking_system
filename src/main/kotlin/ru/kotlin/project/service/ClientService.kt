@@ -51,6 +51,6 @@ class ClientService @Autowired constructor(
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }
         clientRepository.deleteById(clientId)
-        return ResponseEntity(HttpStatus.OK)
+        return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }

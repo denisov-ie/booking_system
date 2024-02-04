@@ -44,7 +44,7 @@ class OperationService @Autowired constructor(
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
         val targetEntity = operationRepository.findById(operationId).orElse(null) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
-        val updatedEntity = targetEntity.copy(title = entity.title, description = entity.description)
+        val updatedEntity = targetEntity.copy(title = entity.title, description = entity.description, duration = entity.duration)
         operationRepository.save(updatedEntity)
         return ResponseEntity(updatedEntity, HttpStatus.OK)
     }

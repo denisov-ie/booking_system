@@ -10,7 +10,7 @@ import javax.persistence.*
 @Table(name = "timeslots")
 data class TimeSlotEntity (
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "timeslot_id")
     var timeSlotId: Long = 0,
 
@@ -26,12 +26,12 @@ data class TimeSlotEntity (
     @Column(name = "is_locked")
     var isLocked: Boolean = false,
 
-    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @ManyToOne(cascade = [CascadeType.MERGE], fetch = FetchType.EAGER)
     @JoinColumn(name = "operation_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     var operationEntity: OperationEntity,
 
-    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @ManyToOne(cascade = [CascadeType.MERGE], fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     var clientEntity: ClientEntity? = null
 )

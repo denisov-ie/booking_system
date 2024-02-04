@@ -24,12 +24,17 @@ class UserController @Autowired constructor(
     @PostMapping("/add")
     fun add(@RequestBody entity: UserParametersDto): ResponseEntity<UserEntity> {
         val roleEntity = roleService.get(entity.roleId)
-        var userEntity: UserEntity? = null
+        var userEntity: UserEntity?
         if (roleEntity.hasBody()) {
             userEntity = UserEntity(
                 login = entity.login,
                 pass = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(entity.pass),
-                roleEntity = roleEntity.body!!
+                roleEntity = roleEntity.body
+            )
+        } else {
+            userEntity = UserEntity(
+                login = entity.login,
+                pass = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(entity.pass)
             )
         }
         return userService.add(userEntity)
