@@ -1,70 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Система бронирования</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
-
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Система бронирования</a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+                <ul class="navbar-nav">
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="#">Бронирование</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Услуги</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Слоты времени</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="#">Клиенты</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                        <a class="nav-link" href="#">Учетные записи</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                        <a class="nav-link" href="#">Роли</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a href="javascript: document.logoutForm.submit()" class="nav-link">Выйти</a>
+                        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                            <input hidden type="submit" value="Выйти" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br><br><br><br><br><br>
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand">Система бронирования</a>
-        </div>
-    </div>
-</nav>
-
-<br><br><br><br><br><br><br>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-
-            <h1>Авторизация</h1>
-            <form th:action="@{/login}" method="post">
-
-                <div th:if="${param.error}">
-                    <div class="alert alert-danger">Неверный логин или пароль.</div>
-                </div>
-
-                <div th:if="${param.logout}">
-                    <div class="alert alert-info">Вы вышли из системы</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="username">Логин</label> :
-                    <input type="text" class="form-control" id="username"
-                           name="username" placeholder="Введите логин"
-                           autofocus="autofocus">
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Пароль</label>:
-                    <input type="password" id="password" name="password"
-                           class="form-control" placeholder="Введите пароль" />
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <input type="submit" name="login-submit"
-                                   id="login-submit"
-                                   class="form-control btn btn-primary"
-                                   value="Войти" />
-                        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
+                <h1 class="text-center">Авторизация</h1>
+                <br>
+                <form th:action="@{/login}" method="post">
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">Неверный логин или пароль</div>
                     </div>
-                </div>
-            </form>
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-info">Вы вышли из системы</div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Логин" autofocus="autofocus">
+                        <label for="floatingInput">Логин</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Пароль">
+                        <label for="floatingPassword">Пароль</label>
+                    </div>
+                    <br>
+                    <input type="submit" name="login-submit"
+                           id="login-submit"
+                           class="form-control btn btn-primary"
+                           value="Войти" />
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
