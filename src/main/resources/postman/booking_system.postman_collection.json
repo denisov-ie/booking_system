@@ -1,0 +1,1142 @@
+{
+	"info": {
+		"_postman_id": "21877414-5e05-4dcd-820f-5ac686fcd95d",
+		"name": "booking_system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32430970"
+	},
+	"item": [
+		{
+			"name": "client",
+			"item": [
+				{
+					"name": "/api/client/add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Third User 123\",\r\n    \"email\": \"user03@test.ru\",\r\n    \"phone\": \"89211230105\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/client/add",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/client/list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/client/list",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/client/{client_id}/get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/client/16/get",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"16",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/client/{client_id}/edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"First User\",\r\n    \"email\": \"modified\",\r\n    \"phone\": \"89211230100\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/client/3/edit",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"3",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/client/{client_id}/delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/client/27/delete",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"27",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "operation",
+			"item": [
+				{
+					"name": "/api/operation/add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Second Operation qqq\",\r\n    \"description\": \"Some work bla qqq\",\r\n    \"duration\": 120\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/operation/add",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"operation",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/operation/list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/operation/list",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"operation",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/operation/{operation_id}/get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/operation/27/get",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"operation",
+								"27",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/operation/{operation_id}/edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"sdfsdf Operation Edited\",\r\n    \"description\": \"Some work\",\r\n    \"duration\": 120\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/operation/28/edit",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"operation",
+								"28",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/operation/{operation_id}/delete",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "ADMIN",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/operation/52/delete",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"operation",
+								"52",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "timeslot",
+			"item": [
+				{
+					"name": "/api/timeslot/{operationId}/add",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateFor\": \"2020-01-12\",\r\n    \"timeFrom\": \"06:30:00\",\r\n    \"timeTo\": \"07:30:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/timeslot/5/add",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"timeslot",
+								"5",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/timeslot/list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/timeslot/list",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"timeslot",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/timeslot/{timeslot_id}/get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/timeslot/34/get",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"timeslot",
+								"34",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/timeslot/{timeslot_id}/edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateFor\": \"2020-01-12\",\r\n    \"timeFrom\": \"08:30:00\",\r\n    \"timeTo\": \"10:30:00\",\r\n    \"isLocked\": true,\r\n    \"operationEntity\": {\r\n        \"operationId\": 5,\r\n        \"title\": \"First Operation Edited\",\r\n        \"description\": \"Some work\",\r\n        \"duration\": 120\r\n    },\r\n    \"clientEntity\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/timeslot/19/edit",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"timeslot",
+								"19",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "booking",
+			"item": [
+				{
+					"name": "/api/booking/{operation_id}/available",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/booking/5/available",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"booking",
+								"5",
+								"available"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/booking/{operation_id}/booked",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/booking/5/booked",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"booking",
+								"5",
+								"booked"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/booking/{client_id}/active",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/booking/15/active",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"booking",
+								"15",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/booking/{timeslot_id}/remove",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/booking/42/remove",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"booking",
+								"42",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/booking/add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clientId\": 3,\r\n    \"operationId\": 5,\r\n    \"timeSlotId\": 42\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/booking/add",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"booking",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/booking/{operation_id}/open",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateFor\": \"2024-02-12\",\r\n    \"timeFrom\": \"08:30:00\",\r\n    \"timeTo\": \"17:30:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/booking/5/open",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"booking",
+								"5",
+								"open"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "role",
+			"item": [
+				{
+					"name": "/api/role/add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"SUPPORT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/role/add",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"role",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/role/list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/role/list",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"role",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/role/{role_id}/get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/role/44/get",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"role",
+								"44",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/role/{role_id}/edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/role/44/edit",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"role",
+								"44",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/role/{role_id}/delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/role/43/delete",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"role",
+								"43",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "/api/user/add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"TESTUSER\",\r\n    \"pass\": \"test\",\r\n    \"roleId\": 45\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/user/add",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/user/list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/user/list",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/user/{user_id}/get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/user/46/get",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"46",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/user/{user_id}/edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": 46,\r\n    \"login\": \"ADMIN\",\r\n    \"pass\": \"{bcrypt}$2a$10$ObXWZ5i1l8DSgPfpyQR/Iuu6EWWke4DCqc3s.hcRpc29gAKgg2vsC\",\r\n    \"roleEntity\": {\r\n        \"roleId\": 44,\r\n        \"role\": \"ADMIN\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/user/46/edit",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"46",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/user/{user_id}/delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/user/49/delete",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"49",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "MANAGER",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "test",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

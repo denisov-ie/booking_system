@@ -8,7 +8,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Система бронирования / управление клиентами</a>
+            <a class="navbar-brand" href="/">Система бронирования / управление услугами</a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                 <ul class="navbar-nav gap-2">
                     <li sec:authorize="isAuthenticated()" class="nav-item">
@@ -53,9 +53,9 @@
                 <thead>
                     <tr>
                         <th width="5%">#</th>
-                        <th width="30%">Название</th>
-                        <th>Описание</th>
-                        <th width="5%">Длительность</th>
+                        <th width="50%">Название</th>
+                        <th>Стоимость, руб.</th>
+                        <th width="5%">Длительность, мин.</th>
                         <th width="10%" colspan="3">Действия</th>
                     </tr>
                 </thead>

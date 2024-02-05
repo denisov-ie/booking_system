@@ -8,7 +8,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Система бронирования / управление клиентами</a>
+            <a class="navbar-brand" href="/">Система бронирования / управление услугами</a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                 <ul class="navbar-nav gap-2">
                     <li sec:authorize="isAuthenticated()" class="nav-item">
@@ -59,11 +59,11 @@
                                     <td><input type="text" required class="w-100" th:field="${entity.title}"/></td>
                                 </tr>
                                 <tr>
-                                    <td>Описание</td>
+                                    <td>Стоимость, руб.</td>
                                     <td><input type="text" required class="w-100" th:field="${entity.description}"/></td>
                                 </tr>
                                 <tr>
-                                    <td>Длительность</td>
+                                    <td>Длительность, мин.</td>
                                     <td><input type="text" required class="w-100" th:field="${entity.duration}"/></td>
                                 </tr>
                             </thead>
