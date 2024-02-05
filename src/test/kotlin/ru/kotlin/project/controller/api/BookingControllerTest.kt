@@ -1,4 +1,4 @@
-package ru.kotlin.project.controller
+package ru.kotlin.project.controller.api
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.*

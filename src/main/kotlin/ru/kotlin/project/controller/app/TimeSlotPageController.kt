@@ -66,6 +66,7 @@ class TimeSlotPageController @Autowired constructor(
 
     @PostMapping("{timeSlotId}/edit")
     fun edit(@PathVariable timeSlotId: Long, @ModelAttribute entity: TimeParametersDto): String {
+        println(entity)
         val timeSlotEntity = TimeSlotEntity(
             timeSlotId = entity.timeSlotId!!,
             dateFor = entity.dateFor!!,
