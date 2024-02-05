@@ -150,8 +150,8 @@ internal class TimeSlotServiceTest {
         )
         assertThat(rs.statusCode).isEqualTo(HttpStatus.OK)
         assertEquals(timeSlotEntitySecond.timeSlotId, rs.body?.timeSlotId)
-        assertEquals(timeSlotEntityFirst.timeTo, rs.body?.timeTo)
-        assertEquals(timeSlotEntityFirst.timeFrom, rs.body?.timeFrom)
+        assertEquals(timeSlotEntitySecond.timeTo, rs.body?.timeTo)
+        assertEquals(timeSlotEntitySecond.timeFrom, rs.body?.timeFrom)
     }
 
     @Test

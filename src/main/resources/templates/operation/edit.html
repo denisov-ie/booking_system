@@ -8,14 +8,14 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Система бронирования</a>
+            <a class="navbar-brand" href="/">Система бронирования / управление клиентами</a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                 <ul class="navbar-nav gap-2">
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <a class="nav-link" href="/app/booking/list">Бронирование</a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <a class="nav-link" href="/app/operation/list">Услуги</a>
+                        <a class="nav-link active" href="/app/operation/list">Услуги</a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <a class="nav-link" href="/app/timeslot/list">Слоты времени</a>
@@ -41,8 +41,42 @@
         </div>
     </nav>
     <br><br>
-    <div class="d-flex justify-content-center">
-        <p class="fs-4">Добро пожаловать!</p>
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="card w-50">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>Редактирование услуги</div>
+                    <form th:method="get" th:action="@{/app/operation/list}">
+                        <button type="submit" class="btn-close" aria-label="Close"></button>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/app/operation/{operationId}/edit(operationId=${entity.operationId})}" th:object="${entity}">
+                        <table class="table table-borderless align-middle">
+                            <thead>
+                                <tr>
+                                    <td width="30%">Идентификатор</td>
+                                    <td><input type="text" class="w-100" readonly="readonly" th:field="${entity.operationId}"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Название</td>
+                                    <td><input type="text" required class="w-100" th:field="${entity.title}"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Описание</td>
+                                    <td><input type="text" required class="w-100" th:field="${entity.description}"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Длительность, мин.</td>
+                                    <td><input type="text" required class="w-100" th:field="${entity.duration}"/></td>
+                                </tr>
+                            </thead>
+                        </table>
+                        <button class="btn btn-light float-end" type="submit" value="Submit">Применить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

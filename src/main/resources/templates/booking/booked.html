@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Система бронирования</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Система бронирования / управление бронированиями</a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+                <ul class="navbar-nav gap-2">
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link active" href="/app/booking/list">Бронирование</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/app/operation/list">Услуги</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/app/timeslot/list">Слоты времени</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/app/client/list">Клиенты</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                        <a class="nav-link" href="/app/user/list">Учетные записи</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                        <a class="nav-link" href="/app/role/list">Роли</a>
+                    </li>
+                    <div class="vr"></div>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a href="javascript: document.logoutForm.submit()" class="btn btn-light">Выйти</a>
+                        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                            <input hidden type="submit" value="Выйти" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+        <div>
+            <p class="fs-5">Занятые слоты</p>
+        </div>
+        <div>
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th width="5%">#</th>
+                        <th>Дата записи</th>
+                        <th>Время начала</th>
+                        <th>Время окончания</th>
+                        <th>Отключено</th>
+                        <th>Услуга</th>
+                        <th>Клиент</th>
+                        <th width="10%" colspan="3">Действия</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr th:each="entity : ${entityList}">
+                        <td scope="row" th:text="${entity.timeSlotId}"></td>
+                        <td th:text="${entity.dateFor}"></td>
+                        <td th:text="${entity.timeFrom}"></td>
+                        <td th:text="${entity.timeTo}"></td>
+                        <td th:text="${entity.isLocked} ? 'Да' : 'Нет'"></td>
+                        <td th:text="${entity?.operationEntity?.title} ?: 'Услуга не привязана'"></td>
+                        <td th:text="${entity?.clientEntity?.name} ?: 'Клиент не записан'"></td>
+                        <td class="actions">
+                            <div class="btn-group">
+                                <form th:method="get" th:action="@{/app/timeslot/__${entity.timeSlotId}__/get}">
+                                    <button class="btn btn-light" type="submit" value="View">Посмотреть</button>
+                                </form>
+                                <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="visually-hidden"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <form th:method="get" th:action="@{/app/booking/__${entity.timeSlotId}__/remove}">
+                                            <button class="dropdown-item" type="submit" value="Edit">Отменить запись</button>
+                                        </form>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form th:method="get" th:action="@{/app/timeslot/__${entity.timeSlotId}__/edit}">
+                                            <button class="dropdown-item" type="submit" value="Edit">Редактировать</button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form th:method="get" th:action="@{/app/timeslot/__${entity.timeSlotId}__/delete}">
+                                            <button class="dropdown-item" type="submit" value="Delete">Удалить</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

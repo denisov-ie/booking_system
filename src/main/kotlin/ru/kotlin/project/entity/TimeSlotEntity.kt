@@ -15,13 +15,13 @@ data class TimeSlotEntity (
     var timeSlotId: Long = 0,
 
     @Column(name = "date_for")
-    var dateFor: Date,
+    var dateFor: Date? = null,
 
     @Column(name = "time_from")
-    var timeFrom: Time,
+    var timeFrom: Time? = null,
 
     @Column(name = "time_to")
-    var timeTo: Time,
+    var timeTo: Time? = null,
 
     @Column(name = "is_locked")
     var isLocked: Boolean = false,

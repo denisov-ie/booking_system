@@ -10,11 +10,11 @@ data class OperationEntity (
     @Column(name = "operation_id")
     var operationId: Long = 0,
 
-    var title: String,
+    var title: String? = "",
 
     var description: String? = "",
 
-    var duration: Int
+    var duration: Int? = null
 )
 
 {
