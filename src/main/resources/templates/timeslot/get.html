@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Система бронирования</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Система бронирования / управление слотами времени</a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+                <ul class="navbar-nav gap-2">
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/app/booking/list">Бронирование</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/app/operation/list">Услуги</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link active" href="/app/timeslot/list">Слоты времени</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/app/client/list">Клиенты</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                        <a class="nav-link" href="/app/user/list">Учетные записи</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                        <a class="nav-link" href="/app/role/list">Роли</a>
+                    </li>
+                    <div class="vr"></div>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a href="javascript: document.logoutForm.submit()" class="btn btn-light">Выйти</a>
+                        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                            <input hidden type="submit" value="Выйти" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br>
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="card w-50">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>Просмотр слота времени</div>
+                    <form th:method="get" th:action="@{/app/timeslot/list}">
+                        <button type="submit" class="btn-close" aria-label="Close"></button>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless align-middle">
+                        <thead>
+                            <tr>
+                                <td width="30%">Идентификатор</td>
+                                <td th:text="${entity.timeSlotId}"></td>
+                            </tr>
+                            <tr>
+                                <td>Дата записи</td>
+                                <td th:text="${entity.dateFor}"></td>
+                            </tr>
+                            <tr>
+                                <td>Время начала</td>
+                                <td th:text="${entity.timeFrom}"></td>
+                            </tr>
+                            <tr>
+                                <td>Время окончания</td>
+                                <td th:text="${entity.timeTo}"></td>
+                            </tr>
+                            <tr>
+                                <td>Отключено</td>
+                                <td th:text="${entity.isLocked} ? 'Да' : 'Нет'"></td>
+                            </tr>
+                            <tr>
+                                <td>Услуга</td>
+                                <td th:text="${entity?.operationEntity?.title} ?: 'Услуга не привязана'"></td>
+                            </tr>
+                            <tr>
+                                <td>Клиент</td>
+                                <td th:text="${entity?.clientEntity?.name} ?: 'Клиент не записан'"></td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

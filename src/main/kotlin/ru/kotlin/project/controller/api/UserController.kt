@@ -1,4 +1,4 @@
-package ru.kotlin.project.controller
+package ru.kotlin.project.controller.api
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -24,18 +24,20 @@ class UserController @Autowired constructor(
     @PostMapping("/add")
     fun add(@RequestBody entity: UserParametersDto): ResponseEntity<UserEntity> {
         val roleEntity = roleService.get(entity.roleId)
-        var userEntity: UserEntity?
-        if (roleEntity.hasBody()) {
+        val userEntity: UserEntity?
+        if (roleEntity.hasBody() && !entity.login.isNullOrEmpty()) {
             userEntity = UserEntity(
-                login = entity.login,
+                login = entity.login!!,
                 pass = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(entity.pass),
                 roleEntity = roleEntity.body
             )
-        } else {
+        } else if (!entity.login.isNullOrEmpty()) {
             userEntity = UserEntity(
-                login = entity.login,
+                login = entity.login!!,
                 pass = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(entity.pass)
             )
+        } else {
+            userEntity = null
         }
         return userService.add(userEntity)
     }

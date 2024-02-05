@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Система бронирования</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Система бронирования / управление пользователями</a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+                <ul class="navbar-nav gap-2">
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/app/booking/list">Бронирование</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/app/operation/list">Услуги</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/app/timeslot/list">Слоты времени</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/app/client/list">Клиенты</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                        <a class="nav-link active" href="/app/user/list">Учетные записи</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                        <a class="nav-link" href="/app/role/list">Роли</a>
+                    </li>
+                    <div class="vr"></div>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a href="javascript: document.logoutForm.submit()" class="btn btn-light">Выйти</a>
+                        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                            <input hidden type="submit" value="Выйти" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br>
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="card w-50">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>Добавление пользователя</div>
+                    <form th:method="get" th:action="@{/app/user/list}">
+                        <button type="submit" class="btn-close" aria-label="Close"></button>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/app/user/add}" th:object="${entity}">
+                        <table class="table table-borderless align-middle">
+                            <thead>
+                                <tr>
+                                    <td>Логин</td>
+                                    <td><input type="text" class="w-100" th:field="${entity.login}" required/></td>
+                                </tr>
+                                <tr>
+                                    <td>Пароль</td>
+                                    <td><input type="password" class="w-100" th:field="${entity.pass}" required/></td>
+                                </tr>
+                                <tr th:object="${roles}">
+                                    <td>Роль</td>
+                                    <td>
+                                        <select class="w-100" th:field="${entity.roleId}" required>
+                                            <option th:each="item : ${roles}"
+                                                    th:value="${item.roleId}"
+                                                    th:text="${item.role}"
+                                                    th:selected="${item.roleId == entity?.roleId}">
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                        <button class="btn btn-light float-end" type="submit" value="Submit">Применить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

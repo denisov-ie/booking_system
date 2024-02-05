@@ -14,7 +14,7 @@ data class ClientEntity (
 
     var email: String? = "",
 
-    var phone: String
+    var phone: String? = ""
 )
 
 {

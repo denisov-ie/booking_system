@@ -10,7 +10,7 @@ data class RoleEntity  (
     @Column(name = "role_id")
     var roleId: Long = 0,
 
-    var role: String
+    var role: String? = ""
 )
 
 {
